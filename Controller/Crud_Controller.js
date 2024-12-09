@@ -1,14 +1,14 @@
-export const Crur_read = (req,res)=>{
-    res.json({msg:"Welcome"})
+export const Crud_read = (req,res)=>{
+    res.send("Welcome")
 }
-export const Crur_insert =(req,res)=>{
-    res.json({msg:"Create new data"})
-}
-
-export const Crur_update =(req,res)=>{
-    res.json({msg:"Edit existing data"})
+export const Crud_insert =(req,res)=>{
+    res.send("Create nw data")
 }
 
-export const Crur_delete =(req,res)=>{
-    res.json({msg:"Delete existing data"})
+export const Crud_update =(req,res)=>{
+    res.send("Edit exiting data")
+}
+
+export const Crud_delete =(req,res)=>{
+    res.send("Delete eisting data")
 }

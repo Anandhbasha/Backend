@@ -1,12 +1,13 @@
 import express,{Router} from "express"
-import { Crur_delete, Crur_insert, Crur_read, Crur_update } from "../Controller/Crud_Controller.js";
+import { Crud_delete, Crud_insert, Crud_read, Crud_update } from "../Controller/Crud_Controller.js";
 
 
+const CrudRoute = express.Router();
 
-CrudRoute.get("/", Crur_read);
+CrudRoute.get("/", Crud_read);
 
-CrudRoute.post("/", Crur_insert)
-CrudRoute.put("/:id", Crur_update)
-CrudRoute.delete("/:id", Crur_delete)
+CrudRoute.post("/", Crud_insert)
+CrudRoute.put("/:id", Crud_update)
+CrudRoute.delete("/:id", Crud_delete)
 
 export default CrudRoute;
