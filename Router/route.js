@@ -7,7 +7,7 @@ const CrudRoute = express.Router();
 CrudRoute.get("/", Crud_read);
 
 CrudRoute.post("/", Crud_insert)
-CrudRoute.put("/:id", Crud_update)
-CrudRoute.delete("/:id", Crud_delete)
+CrudRoute.put("/:name", Crud_update)
+CrudRoute.delete("/:name", Crud_delete)
 
 export default CrudRoute;
