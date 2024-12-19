@@ -1,6 +1,12 @@
 import User from "../Model/Model.js";
+import New_User from "../Model/new_model.js";
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 
+export const login_token = async(req,res)=>{
+    
+}
 
 export const Crud_read = async(req,res)=>{
     try {       
@@ -28,6 +34,52 @@ export const Crud_insert = async (req, res) => {
 };
 
 
+export const register = async(req,res)=>{
+    try{ 
+        const{user_name,user_email,password}=req.body;
+        const existing_user = await New_User.findOne({user_email});
+        if(existing_user){
+            return res.status(409).json({status:false,error:"User already exist"})
+        }
+        const keys = await bcrypt.genSalt(10);
+        const hassedPassword = await bcrypt.hash(password,keys);
+        const new_user = new New_User({
+            user_name:user_name,
+            user_email:user_email,
+            password:hassedPassword
+
+        })
+        const saved_user = await new_user.save();
+        res.status(200).json({message:"Registered Successfully",data:saved_user})
+    } catch (error) {
+        res.status(500).json({message:"Internal Error",message:error})
+    }
+}
+export const login = async(req,res)=>{
+    try {
+        const {user_email,password} =req.body;
+    const match = await New_User.findOne({user_email});
+    if(!match){
+        return res.status(408).json({status:false,error:"No match Found"});
+    }
+    const joined = await bcrypt.compare(password,match.password);
+    if(!joined){
+        return res.status(409).json({status:false,error:"Password is Incorrect"})
+    }
+    const token = jwt.sign({id:match._id},"abcdefgh",{expiresIn:"1h"});
+    res.status(202).json({
+        token,
+        data:{
+            email:match.user_email,
+            name:match.user_name
+        }
+
+    }) 
+    } catch (error) {
+        res.status(500).json({status:false,error:"Internal Server Error"})
+    }
+}
+
 // Update User
 export const Crud_update = async (req, res) => {
     try {
@@ -45,7 +97,7 @@ export const Crud_update = async (req, res) => {
 
 
 
-
+    
 
 
 
