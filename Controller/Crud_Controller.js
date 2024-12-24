@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 
 
 export const login_token = async(req,res)=>{
-    
+    const auth = req.header["authorization"]
 }
 
 export const Crud_read = async(req,res)=>{
